@@ -1,4 +1,4 @@
-# github commands
+## github commands
 - git commit
 - git pull
 - git push
