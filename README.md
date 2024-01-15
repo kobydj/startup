@@ -6,7 +6,8 @@ Startup Application for BYU CS 260
 ### Elevator pitch
 
 ### Design
-![this is a rough draft of a page of my website design](https://ninjamock.com/s/H4M6TLx)
+![startup application rough draph](https://github.com/kobydj/startup/assets/112727740/995f5ddd-03aa-4e52-ab2b-79f8626fe104)
+/s/H4M6TLx
 
 ### Key features
 
