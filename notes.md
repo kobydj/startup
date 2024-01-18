@@ -9,7 +9,7 @@ good note don't use the canvas to do this use the web page that is [this](https:
 ## Server Notes
 - To ssh into the server use this 
 - IP address = 18.214.45.63
-- URL = http://18.214.45.63/
+- URL = http://18.214.45.63/ or gardentimer.click
 ```
 ssh -i [key pair file] ubuntu@[ip address]
 ssh -i ~/keys/production.pem ubuntu@53.104.2.123
