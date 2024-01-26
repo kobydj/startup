@@ -28,4 +28,13 @@ Have you ever planted you seeds and forgotten when you planted them or how long 
 - **DB/Login** - Store users, plants, and list of friends in database. Register and login users. Credentials securely stored in database. Can't add/view plants unless authenticated.
 - **WebSocket** - When you add plants a notification is broadcast to your friends. Braodcasts notifications when possibility of a freeze and watering reminders
 - **React** - Application ported to use the React web framework.
+## HTML deliverable
+For this deliverable I built out the structure of my application using HTML.
+
+- **HTML pages** -
+- **Links** - 
+- **Text** - 
+- **Images** - 
+- **DB/Login** - 
+- **WebSocket** - 
 
