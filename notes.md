@@ -14,4 +14,5 @@ good note don't use the canvas to do this use the web page that is [this](https:
 ssh -i [key pair file] ubuntu@[ip address]
 ssh -i ~/keys/production.pem ubuntu@53.104.2.123
 ```
-## Simon Notes
+## HTML Notes
+I need a page for login a page to view the plants, and page to see information on the plants and I will do an about page. My HTML small assignment links here [media](https://codepen.io/kobydj/pen/QWoqvRL) [input](https://codepen.io/kobydj/full/LYazWzY) [structure](https://codepen.io/kobydj/pen/abMyRQw)
