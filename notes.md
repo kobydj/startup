@@ -16,3 +16,7 @@ ssh -i ~/keys/production.pem ubuntu@53.104.2.123
 ```
 ## HTML Notes
 I need a page for login a page to view the plants, and page to see information on the plants and I will do an about page. My HTML small assignment links here [media](https://codepen.io/kobydj/pen/QWoqvRL) [input](https://codepen.io/kobydj/full/LYazWzY) [structure](https://codepen.io/kobydj/pen/abMyRQw)
+
+I have included an info page on my starter im not sure if i will have it be a page or if it will just pop up when you click on the plants. I also probably ought to make the password box write as circles instead of letters.
+## CSS Notes
+
