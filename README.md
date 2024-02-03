@@ -32,7 +32,7 @@ Have you ever planted you seeds and forgotten when you planted them or how long 
 For this deliverable I built out the structure of my application using HTML.
 
 - **HTML pages** - I have included 4 pages, a login page, a page where you can view the plants which you have added to your garden, an info page that that shows you weather and plant info and an about page with a cute picture and explanation.
-- **Links** - The loggin page links automatically to the garden page and each plant in the garden page links to the plant info page. Ive also included links to all pages in the header and a link to my github in the footer.
+- **Links** - The loggin page links automatically to the garden page and each plant in the garden page links to the plant info page. There is also a link from the info page to get back to the grden page. Ive also included links to all pages in the header and a link to my github in the footer.
 - **Text** - the plant and weather information is represented textually.
 - **Images** - I have included clip art images of plants and an inspirational picture on the about page.
 - **DB/Login** -  Input boxes for a username and password with a submit button. All the information about the specific plants will be pulled from the database.
