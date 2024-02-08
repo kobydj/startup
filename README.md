@@ -28,6 +28,7 @@ Have you ever planted you seeds and forgotten when you planted them or how long 
 - **DB/Login** - Store users, plants, and list of friends in database. Register and login users. Credentials securely stored in database. Can't add/view plants unless authenticated.
 - **WebSocket** - When you add plants a notification is broadcast to your friends. Braodcasts notifications when possibility of a freeze and watering reminders
 - **React** - Application ported to use the React web framework.
+
 ## HTML deliverable
 For this deliverable I built out the structure of my application using HTML.
 
@@ -38,4 +39,14 @@ For this deliverable I built out the structure of my application using HTML.
 - **Images** - I have included clip art images of plants and an inspirational picture on the about page.
 - **DB/Login** -  Input boxes for a username and password with a submit button. All the information about the specific plants will be pulled from the database.
 - **WebSocket** - The real time weather updates will be accessed using websocket, in order to update when adverse weather is coming.
+
+## CSS deliverable
+I added css styling in this deliverable.
+
+- **Header, footer, and main content body**
+- **Navigation elements** - I dropped the underlines and changed the color for anchor elements.
+- **Responsive to window resizing** - My app looks great on all window sizes and devices
+- **Application elements** - Used good contrast and whitespace
+- **Application text content** - Consistent fonts
+- **Application images** - Still don't have images and so no styling here. 😔
 
