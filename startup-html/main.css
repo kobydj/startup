@@ -2,18 +2,15 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 375px;
-    height: 830px;
 }
-html {
-    height:max-content;
-}
+
   
   header {
     flex: 0 80px;
 }
   
   main {
-    flex: 1 calc(90vh - 110px);
+    flex: 1 calc(100vh - 110px);
     display: flex;
     flex-direction: column;
     align-items: center;
