@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 375px;
+    background-color: rgb(122, 183, 138);
 }
 
   
@@ -15,10 +16,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    background-color: #d2ebc9;
+
 }
   
   footer {
     flex: 0 30px;
+    background-color: darkolivegreen;
 }
   
   menu {
@@ -27,14 +31,18 @@ body {
     flex-direction: row !important;
     list-style: none;
 }
-  
+  .navbar {
+    background-color: darkolivegreen;
+
+}
   .navbar-brand {
     padding-left: 0.3em;
-    
+
   }
   
   menu .nav-item {
     padding: 0 0.3em;
+
   }
   
   footer a {
