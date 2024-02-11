@@ -44,9 +44,9 @@ For this deliverable I built out the structure of my application using HTML.
 I added css styling in this deliverable.
 
 - **Header, footer, and main content body**
-- **Navigation elements** - I dropped the underlines and changed the color for anchor elements.
-- **Responsive to window resizing** - My app looks great on all window sizes and devices
-- **Application elements** - Used good contrast and whitespace
-- **Application text content** - Consistent fonts
-- **Application images** - Still don't have images and so no styling here. 😔
+- **Navigation elements** - I fixed the navigation element to the top of the screen and made sure the background color stuck with them.
+- **Responsive to window resizing** - My app adjusts to all window sizes and displays. The garden page is the best example as all the images are set on a grid so that if the screen is less wide it adds more rows.
+- **Application elements** - Added bootstrap elements and buttons to make page feel more modern.
+- **Application text content** - I used consistent fonts, and good contrast to make all of the text readable.
+- **Application images** - I changed my about image, and added a border around it to make it fit visually with color scheme. I also placed all the images on the garden page into cards so they look softer and are connected with he descriptions and buttons.
 
