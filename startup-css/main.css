@@ -8,6 +8,8 @@ body {
   
   header {
     flex: 0 80px;
+    background-color: darkolivegreen;
+
 }
   
   main {
