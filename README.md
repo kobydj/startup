@@ -1,5 +1,6 @@
 # startup
-Startup Application for BYU CS 260
+[Startup Application](https:startup.gardentimer.click) for BYU CS 260
+
 ## [NOTES](/notes.md)
 
 ## Startup Specifications
