@@ -11,3 +11,6 @@ class Gardener {
 }
 const gardener = new Gardener();
 /* could add ability to remove or add cards here*/
+function setPlant(plantType) {
+    localStorage.setItem('plant-type', plantType);
+}
