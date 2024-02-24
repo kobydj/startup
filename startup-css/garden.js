@@ -1,4 +1,4 @@
-class Garden {
+class Gardener {
     constructor() {
 
         const userNameEl = document.querySelector('.gardener-name');
@@ -6,7 +6,8 @@ class Garden {
 
     }
     getUserName() {
-        return localStorage.getItem('userName') ?? 'Mystery player';
+        return localStorage.getItem('userName'); 
     }
 }
-const gardener = new Garden();
+const gardener = new Gardener();
+/* could add ability to remove or add cards here*/
