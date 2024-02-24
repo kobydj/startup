@@ -9,3 +9,4 @@ class Garden {
         return localStorage.getItem('userName') ?? 'Mystery player';
     }
 }
+const gardener = new Garden();

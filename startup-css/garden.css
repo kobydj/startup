@@ -5,3 +5,6 @@ main .garden {
     justify-content: space-around;
     align-items: stretch;
 }
+main .gardeners {
+    place-self: self-end;
+}
