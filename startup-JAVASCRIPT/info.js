@@ -37,18 +37,23 @@ new plantdates();
   function setDate() {
     const dateEl = document.querySelector("#start-date");
     console.log(dateEl.value);
-    localStorage.setItem(localStorage.getItem('plant-type') + "-start", dateEl.value);
+    localStorage.setItem(localStorage.getItem('plant-type') + "-start", JSON.stringify(dateEl.value));
     setFinishDate()
   }
 
   function setFinishDate() {
-    let harvestDate= getStartDate();
-    console.log(harvestDate);
+    let harvestDate = new Date(getStartDate());
+    harvestDate.setDate(harvestDate.getDate() + 50)
 
     const harvestDateEl = document.querySelector('#finish-date');
-    harvestDateEl.textContent = harvestDate;
+    harvestDateEl.textContent = harvestDate.toLocaleDateString();
   }
 
   function getStartDate() {
-    return localStorage.getItem(localStorage.getItem('plant-type') + "-start"); 
+    console.log("in getstartdate");
+
+    let thisDate = localStorage.getItem(localStorage.getItem('plant-type') + "-start");
+    console.log(thisDate);
+    console.log(JSON.parse(thisDate));
+    return JSON.parse(thisDate);
   }
