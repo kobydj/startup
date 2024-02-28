@@ -28,6 +28,8 @@ class plantdates{
         const startDate = document.querySelector('#start-date');
         startDate.value = getStartDate();
         console.log(startDate.value);
+        const germination = document.querySelector('#avg-germination');
+        germination.textContent = localStorage.getItem(localStorage.getItem('plant-type') + "-germination");
 
         setFinishDate();
     }
