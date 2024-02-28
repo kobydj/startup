@@ -40,12 +40,18 @@ new plantdates();
     const dateEl = document.querySelector("#start-date");
     console.log(dateEl.value);
     localStorage.setItem(localStorage.getItem('plant-type') + "-start", JSON.stringify(dateEl.value));
-    setFinishDate()
+    setFinishDate();
   }
 
   function setFinishDate() {
     let harvestDate = new Date(getStartDate());
-    harvestDate.setDate(harvestDate.getDate() + 50)
+    console.log(harvestDate);
+
+    daysToAdd = Number(JSON.parse(localStorage.getItem(localStorage.getItem('plant-type') + "-grow-time")));
+    harvestDate.setDate(harvestDate.getDate() + daysToAdd);
+    console.log(typeof(daysToAdd));
+    console.log(harvestDate.getDate());
+    console.log(harvestDate);
 
     const harvestDateEl = document.querySelector('#finish-date');
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
