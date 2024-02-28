@@ -56,6 +56,6 @@ I added css styling in this deliverable.
 For this deliverable I implemented by JavaScript so that the application works for a single user. I also added placeholders for future technology.
 
 - **login** - When you press enter or the login button it takes you to the garden page. Saves the username in local storage and displays in it the garden page.
-- **database** - Displayed the planting dates for the plants. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
+- **database** - Displayed the planting dates the germination times and the length of the season for each plant. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
 - **WebSocket** - I used the setInterval function to periodically do some random math to determine if the weather is below freezing, it then displays the temp if it is freezing. This will be replaced with WebSocket messages later.
-- **application logic** - The highlight and ranking number change based up the user's selections.
+- **application logic** - The germination dates and season lengths change depending on which plant is selected, this means that the harvest date will depend on when it was planted as well as what plant it is.
