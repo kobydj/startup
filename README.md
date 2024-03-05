@@ -59,3 +59,16 @@ For this deliverable I implemented by JavaScript so that the application works f
 - **database** - Displayed the planting dates the germination times and the length of the season for each plant. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
 - **WebSocket** - I used the setInterval function to periodically do some random math to determine if the weather is below freezing, it then displays the temp if it is freezing. This will be replaced with WebSocket messages later.
 - **application logic** - The germination dates and season lengths change depending on which plant is selected, this means that the harvest date will depend on when it was planted as well as what plant it is.
+
+## Service deliverable
+
+➡️ The following is an example of the required information for the `Startup Service` deliverable
+
+For this deliverable I added backend endpoints that receives votes and returns the voting totals.
+
+- **Node.js/Express HTTP service** - done!
+- **Static middleware for frontend** - done!
+- **Calls to third party endpoints** - I didn't have time to implement this. 😔
+- **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for voting.
+- **Frontend calls service endpoints** - I did this using the fetch function.
+
