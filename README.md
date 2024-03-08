@@ -62,13 +62,11 @@ For this deliverable I implemented by JavaScript so that the application works f
 
 ## Service deliverable
 
-➡️ The following is an example of the required information for the `Startup Service` deliverable
-
-For this deliverable I added backend endpoints that receives votes and returns the voting totals.
+For this deliverable I added backend endpoints to store information on all the plants that was in local storage, and third party endpoints to check the weather.
 
 - **Node.js/Express HTTP service** - done!
 - **Static middleware for frontend** - done!
-- **Calls to third party endpoints** - I didn't have time to implement this. 😔
-- **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for voting.
+- **Calls to third party endpoints** - Calls weather API to update the weather alert. 
+- **Backend service endpoints** - Endpoints to store the plant type and all the info for the plants.
 - **Frontend calls service endpoints** - I did this using the fetch function.
 
