@@ -20,7 +20,7 @@ Have you ever planted you seeds and forgotten when you planted them or how long 
 ### Technologies
 - **HTML** - Uses correct HTML structure for application. Two HTML pages. One for login and one for viewing your garden.
 - **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
-- **JavaScript** - Provides login, clicking on plants to view info, display other users votes, backend endpoint calls.
+- **JavaScript** - Provides login, clicking on plants to view info, backend endpoint calls.
 - **Service** - Backend service with endpoints for:
   - registering
   - login
