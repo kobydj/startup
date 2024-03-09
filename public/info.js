@@ -41,30 +41,41 @@ class weatherUpdates {
   }
 }
 
-
-  function plantInfo() {
-
-  }
+let plantType 
 class plantdates{
-    constructor() {
-        const startDate = document.querySelector('#start-date');
-        startDate.value = getStartDate();
-        console.log(startDate.value);
-        const germination = document.querySelector('#avg-germination');
-        germination.textContent = localStorage.getItem(localStorage.getItem('plant-type') + "-germination");
-        const plantType = document.querySelector('#plant-type');
-        plantType.textContent = localStorage.getItem('plant-type');
-
-        setFinishDate();
+     constructor() {
+        getPlant();
     }
 }
-new plantdates();
-new weatherUpdates();
+
+  async function getPlant() {
+    try {
+      // Get the latest high scores from the service
+      const response = await fetch('/api/scores');
+      plantType = await response.json();
+      
+      // Save the scores in case we go offline in the future
+      localStorage.setItem('plant-type', plantType);    
+
+    } catch {
+      // If there was an error then just use the last saved scores
+      plantType = localStorage.getItem('plant-type');
+
+    }
+    const startDate = document.querySelector('#start-date');
+    startDate.value = getStartDate();
+    console.log(startDate.value);
+    const germination = document.querySelector('#avg-germination');
+    germination.textContent = localStorage.getItem(plantType + "-germination");
+    const plantText = document.querySelector('#plant-type');
+    console.log(plantType.promiseResult)
+    plantText.textContent = plantType;  
+  }
 
   function setDate() {
     const dateEl = document.querySelector("#start-date");
     console.log(dateEl.value);
-    localStorage.setItem(localStorage.getItem('plant-type') + "-start", JSON.stringify(dateEl.value));
+    localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
     setFinishDate();
   }
 
@@ -72,7 +83,7 @@ new weatherUpdates();
     let harvestDate = new Date(getStartDate());
     console.log(harvestDate);
 
-    daysToAdd = Number(JSON.parse(localStorage.getItem(localStorage.getItem('plant-type') + "-grow-time")));
+    daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
     harvestDate.setDate(harvestDate.getDate() + daysToAdd);
     console.log(typeof(daysToAdd));
     console.log(harvestDate.getDate());
@@ -85,10 +96,12 @@ new weatherUpdates();
   function getStartDate() {
     console.log("in getstartdate");
 
-    let thisDate = localStorage.getItem(localStorage.getItem('plant-type') + "-start");
+    let thisDate = localStorage.getItem(plantType + "-start");
     console.log(thisDate);
     console.log(JSON.parse(thisDate));
     return JSON.parse(thisDate);
   }
 
+new plantdates();
+new weatherUpdates();
   
