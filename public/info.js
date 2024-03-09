@@ -79,7 +79,7 @@ class plantdates{
 
   async function setDate() {
     const dateEl = document.querySelector("#start-date");
-    console.log(dateEl.value);
+    console.log("dateEl value: " + dateEl.value);
     const newDate = {name: JSON.parse(plantType), date: dateEl.value};
     try{
       const response = await fetch('/api/date', {
@@ -91,19 +91,14 @@ class plantdates{
     }catch{
       localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
     }
-    setFinishDate();
-  }
-
-  async function setFinishDate() {
-    let harvestDate = new Date(getStartDate());
+    let harvestDate = new Date(dateEl.value);
     console.log(harvestDate);
     try {
       const response = await fetch('/api/plant');
-
       const plantText = await response.json();
       let daysToAdd = Number(JSON.parse(plantText.season));
       harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-      console.log(typeof(daysToAdd));
+      console.log("days to add" + typeof(daysToAdd));
       console.log(harvestDate.getDate());
       console.log(harvestDate);
     } catch {
@@ -117,22 +112,47 @@ class plantdates{
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
   }
 
+
+
   async function getStartDate() {
     console.log("in getstartdate");
     let thisDate;
+    let harvestDate;
     try {
       const response = await fetch('/api/date');
       const dateText = await response.json();
-      thisDate = JSON.parse(JSON.parse(dateText.date));
+      thisDate = JSON.parse(dateText.date);
       console.log(thisDate);
       const startDate = document.querySelector('#start-date');
-      startDate.value = JSON.parse(thisDate); 
+      startDate.value = JSON.parse(thisDate);
+      harvestDate = new Date(JSON.parse(thisDate));  
     } catch {
       defaultDate = localStorage.getItem(plantType + "-start");
       console.log(defaultDate);
       const startDate = document.querySelector('#start-date');
       startDate.value = JSON.parse(defaultDate); 
+      harvestDate = new Date(JSON.parse(defaultDate))
     }
+
+    console.log(harvestDate);
+
+    try {
+      const response = await fetch('/api/plant');
+      const plantText = await response.json();
+      let daysToAdd = Number(JSON.parse(plantText.season));
+      harvestDate.setDate(harvestDate.getDate() + daysToAdd);
+      console.log("days to add" + typeof(daysToAdd));
+      console.log(harvestDate.getDate());
+      console.log(harvestDate);
+    } catch {
+      let daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
+      harvestDate.setDate(harvestDate.getDate() + daysToAdd);
+      console.log(typeof(daysToAdd));
+      console.log(harvestDate.getDate());
+      console.log(harvestDate);
+    }
+    const harvestDateEl = document.querySelector('#finish-date');
+    harvestDateEl.textContent = harvestDate.toLocaleDateString();
   }
 
 new plantdates();
