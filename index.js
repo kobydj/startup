@@ -20,7 +20,6 @@ apiRouter.get('/plant', (_req, res) => {
   res.send(plantType);
 });
 
-// SubmitScore
 apiRouter.post('/plant', (req, res) => {
   plantType = req.body;
   console.log(req.body);

@@ -12,16 +12,22 @@ class Gardener {
 const gardener = new Gardener();
 /* could add ability to remove or add cards here*/
 async function setPlant(plantType, germinate, growSeason) {
+    try{
     const response = await fetch('/api/plant', {
       method: 'POST',
-      headers: {'content-type': 'application/json'},
-      body: (plantType),
+      headers: {'content-type': 'text'},
+      body: (JSON.stringify(plantType)),
     });
-    // Store what the service gave us as the high scores
-    localStorage.setItem('plant-type', plantType);      
     
+    const scores = await response.json();
+    console.log(scores)
+    localStorage.setItem('plant-type', JSON.stringify(plantType));  
+    }catch{    
+        console.log("broke")
+    }
 
     localStorage.setItem(localStorage.getItem('plant-type') + "-germination", germinate);
     localStorage.setItem(localStorage.getItem('plant-type') + "-grow-time", JSON.stringify(growSeason));
+    window.location.href = "info.html";
 
 }
