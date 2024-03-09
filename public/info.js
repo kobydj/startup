@@ -53,25 +53,30 @@ class plantdates{
     let plantType;
     try {
       console.log("trying")
-
-      // Get the latest high scores from the service
-      const response = await fetch('/api/plant');
-      console.log(response)
+      const response = await fetch('/api/plant-type');
       plantType = await response.json();
-      // Save the scores in case we go offline in the future
       localStorage.setItem('plant-type', plantType);    
 
     } catch {
-      // If there was an error then just use the last saved scores
       plantType = localStorage.getItem('plant-type');
 
+    }    
+    const plantText = document.querySelector('#plant-type');
+    plantText.textContent = JSON.parse(plantType);
+
+    try {
+      const response = await fetch('/api/plant');
+
+      const plantText = await response.json();
+
+      const germination = document.querySelector('#avg-germination');
+      germination.textContent = plantText.germination;
+    } catch {
+      const germination = document.querySelector('#avg-germination');
+      germination.textContent = localStorage.getItem(plantType + "-germination");
     }
     const startDate = document.querySelector('#start-date');
-    startDate.value = getStartDate();
-    const germination = document.querySelector('#avg-germination');
-    germination.textContent = localStorage.getItem(plantType + "-germination");
-    const plantText = document.querySelector('#plant-type');
-    plantText.textContent = JSON.parse(plantType);  
+    startDate.value = getStartDate();  
   }
 
   function setDate() {
@@ -81,16 +86,25 @@ class plantdates{
     setFinishDate();
   }
 
-  function setFinishDate() {
+  async function setFinishDate() {
     let harvestDate = new Date(getStartDate());
     console.log(harvestDate);
+    try {
+      const response = await fetch('/api/plant');
 
-    daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
-    harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-    console.log(typeof(daysToAdd));
-    console.log(harvestDate.getDate());
-    console.log(harvestDate);
-
+      const plantText = await response.json();
+      let daysToAdd = Number(JSON.parse(plantText.season));
+      harvestDate.setDate(harvestDate.getDate() + daysToAdd);
+      console.log(typeof(daysToAdd));
+      console.log(harvestDate.getDate());
+      console.log(harvestDate);
+    } catch {
+      let daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
+      harvestDate.setDate(harvestDate.getDate() + daysToAdd);
+      console.log(typeof(daysToAdd));
+      console.log(harvestDate.getDate());
+      console.log(harvestDate);
+    }
     const harvestDateEl = document.querySelector('#finish-date');
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
   }

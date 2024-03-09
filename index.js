@@ -17,9 +17,15 @@ app.use(`/api`, apiRouter);
 
 let plantType 
 let garden = [];
-apiRouter.get('/plant', (_req, res) => {
+apiRouter.get('/plant-type', (_req, res) => {
   console.log("getting plants")
   res.send(plantType);
+});
+apiRouter.get('/plant', (_req, res) => {
+  console.log("getting plant")
+  let plantJson = getPlantFromGarden(plantType);
+  let germ = plantJson.germination
+  res.send(plantJson);
 });
 
 apiRouter.post('/plant', (req, res) => {
@@ -38,6 +44,20 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+function getPlantFromGarden(plantType){
+  let found = false;
+  for (const [i, prevPlant] of garden.entries()) {
+    console.log(prevPlant)
+    if (plantType === prevPlant.name) {
+      found = true;
+      return prevPlant;
+    }
+  }
+  if (!found) {
+    consolee.log("unable to find plant");
+  } 
+  
+}
 function updateGarden(newPlant, garden) {
   let found = false;
   for (const [i, prevPlant] of garden.entries()) {
