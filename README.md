@@ -67,6 +67,6 @@ For this deliverable I added backend endpoints to store information on all the p
 - **Node.js/Express HTTP service** - done!
 - **Static middleware for frontend** - done!
 - **Calls to third party endpoints** - Calls weather API to update the weather alert. 
-- **Backend service endpoints** - Endpoints to store the plant type and all the info for the plants.
+- **Backend service endpoints** - Endpoints to store the plant type and all the info for the plants, I also have the planting dates given by the user stored.
 - **Frontend calls service endpoints** - I did this using the fetch function.
 
