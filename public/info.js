@@ -50,7 +50,6 @@ class plantdates{
 
   async function getPlant() {
     console.log("getplant")
-    let plantType;
     try {
       console.log("trying")
       const response = await fetch('/api/plant-type');
@@ -75,14 +74,23 @@ class plantdates{
       const germination = document.querySelector('#avg-germination');
       germination.textContent = localStorage.getItem(plantType + "-germination");
     }
-    const startDate = document.querySelector('#start-date');
-    startDate.value = getStartDate();  
+    getStartDate();
   }
 
-  function setDate() {
+  async function setDate() {
     const dateEl = document.querySelector("#start-date");
     console.log(dateEl.value);
-    localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
+    const newDate = {name: JSON.parse(plantType), date: dateEl.value};
+    try{
+      const response = await fetch('/api/date', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: (JSON.stringify(newDate)),
+      });
+      localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
+    }catch{
+      localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
+    }
     setFinishDate();
   }
 
@@ -109,11 +117,22 @@ class plantdates{
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
   }
 
-  function getStartDate() {
+  async function getStartDate() {
     console.log("in getstartdate");
-
-    let thisDate = localStorage.getItem(plantType + "-start");
-    return JSON.parse(thisDate);
+    let thisDate;
+    try {
+      const response = await fetch('/api/date');
+      const dateText = await response.json();
+      thisDate = JSON.parse(JSON.parse(dateText.date));
+      console.log(thisDate);
+      const startDate = document.querySelector('#start-date');
+      startDate.value = JSON.parse(thisDate); 
+    } catch {
+      defaultDate = localStorage.getItem(plantType + "-start");
+      console.log(defaultDate);
+      const startDate = document.querySelector('#start-date');
+      startDate.value = JSON.parse(defaultDate); 
+    }
   }
 
 new plantdates();
