@@ -16,13 +16,16 @@ const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 let plantType 
+let garden = [];
 apiRouter.get('/plant', (_req, res) => {
+  console.log("getting plants")
   res.send(plantType);
 });
 
 apiRouter.post('/plant', (req, res) => {
-  plantType = req.body;
+  plantType = req.body.name;
   console.log(req.body);
+  updateGarden(req.body, garden);
   res.send(plantType);
 });
 
@@ -34,3 +37,19 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+function updateGarden(newPlant, garden) {
+  let found = false;
+  for (const [i, prevPlant] of garden.entries()) {
+    console.log(prevPlant)
+    if (newPlant.name === prevPlant.name) {
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    garden.push(newPlant);
+  }
+  return garden;
+}

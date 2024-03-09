@@ -49,11 +49,15 @@ class plantdates{
 }
 
   async function getPlant() {
+    console.log("getplant")
+    let plantType;
     try {
+      console.log("trying")
+
       // Get the latest high scores from the service
-      const response = await fetch('/api/scores');
+      const response = await fetch('/api/plant');
+      console.log(response)
       plantType = await response.json();
-      
       // Save the scores in case we go offline in the future
       localStorage.setItem('plant-type', plantType);    
 
@@ -64,12 +68,10 @@ class plantdates{
     }
     const startDate = document.querySelector('#start-date');
     startDate.value = getStartDate();
-    console.log(startDate.value);
     const germination = document.querySelector('#avg-germination');
     germination.textContent = localStorage.getItem(plantType + "-germination");
     const plantText = document.querySelector('#plant-type');
-    console.log(plantType.promiseResult)
-    plantText.textContent = plantType;  
+    plantText.textContent = JSON.parse(plantType);  
   }
 
   function setDate() {
@@ -97,8 +99,6 @@ class plantdates{
     console.log("in getstartdate");
 
     let thisDate = localStorage.getItem(plantType + "-start");
-    console.log(thisDate);
-    console.log(JSON.parse(thisDate));
     return JSON.parse(thisDate);
   }
 
