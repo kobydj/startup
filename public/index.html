@@ -40,14 +40,27 @@
     <main class="container-fluid text-dark text-center">
       <div>
         <h1>Welcome to your Garden</h1>
-        <p>Login to see your plants</p>
-        <form method="get" action="garden.html">
+        <div id="loginControls" style="display: none">
+          <p>Login to see your plants</p>
+          <form method="get" action="garden.html">
+            <input type="text" id="name" placeholder="Your name here" />
+            <input type="text" id="password" placeholder="Your password here" />
+            <button class=" btn btn-success" type="submit" onclick="login()" >Login</button>
+            <button class=" btn btn-success" type="submit" onclick="create()" >Create</button>
           
-          <input type="text" id="name" placeholder="Your name here" />
+          </form>
+        </div> 
+        <div id="postLogin" style="display: none">
+          <div id="userName"> </div>
+
+          <p>Press garden to see you plants</p>
+          <form method="get" action="garden.html">
+
+            <button class=" btn btn-success" type="submit" href="garden.html"  >Garden</button>
+            <button class=" btn btn-success" type="submit" onclick="logout()" >Logout</button>
           
-          <input type="text" id="password" placeholder="Your password here" />
-          <button class=" btn btn-success" type="submit" onclick="login()" >Login</button>
-        </form>
+          </form>
+        </div> 
       </div>
     </main>
 
@@ -57,7 +70,7 @@
         <a class="text-reset" href="https://github.com/kobydj/startup.git">GitHub</a>
       </div>
     </footer> 
-
+    <script src="login.js"></script>
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
