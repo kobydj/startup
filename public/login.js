@@ -18,20 +18,38 @@ function setDisplay(controlId, display) {
   }
 }
 
-function login() {
-    const nameEl = document.querySelector("#name");
-    localStorage.setItem("userName", nameEl.value);
-    window.location.href = "Garden.html";
-  }
+async function login() {
+  loginOrCreate(`/api/auth/login`)
+}
 
-function create() {
-    const nameEl = document.querySelector("#name");
-    localStorage.setItem("userName", nameEl.value);
-    window.location.href = "Garden.html";
-  }
+async function create() {
+  loginOrCreate(`/api/auth/create`)
+}
 
-function create() {
+async function loginOrCreate(endpoint) {
+  const userName = document.querySelector('#name')?.value;
+  const password = document.querySelector('#password')?.value;
+  const response = await fetch(endpoint, {
+    method: 'post',
+    body: JSON.stringify({ userName: userName, password: password }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  
+  if (response.ok) {
+    localStorage.setItem('userName', userName);
+    window.location.href = 'garden.html';
+  } else {
+    const body = await response.json();
+    const modalEl = document.querySelector('#msgModal');
+    modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;
+    const msgModal = new bootstrap.Modal(modalEl, {});
+    msgModal.show();
+  }
+}
+
+function logout() {
   localStorage.removeItem('userName');
-
   }
   

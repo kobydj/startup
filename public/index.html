@@ -56,11 +56,22 @@
           <p>Press garden to see you plants</p>
           <form method="get" action="garden.html">
 
-            <button class=" btn btn-success" type="submit" href="garden.html"  >Garden</button>
+            <button class=" btn btn-success" type="submit" href="garden.html" >Garden</button>
             <button class=" btn btn-success" type="submit" onclick="logout()" >Logout</button>
           
           </form>
         </div> 
+      </div>
+
+            <div class="modal fade" id="msgModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-dark">
+            <div class="modal-body">error message here</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 

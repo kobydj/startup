@@ -1,5 +1,10 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
+const DB = require('./database.js');
+
 const app = express();
+const authCookieName = 'token';
 
 
 // The service port. In production the frontend code is statically hosted by the service on the same port.
@@ -7,6 +12,8 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
+app.use(cookieParser()); 
+app.set('trust proxy', true);
 
 // Serve up the frontend static content hosting
 app.use(express.static('public'));
@@ -14,35 +21,90 @@ app.use(express.static('public'));
 // Router for service endpoints
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+// authorization endpoints
+apiRouter.post('/auth/create', async (req, res) => {
+  if (await DB.getUser(req.body.userName)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await DB.createUser(req.body.userName, req.body.password);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
+  }
+});
+apiRouter.post('/auth/login', async (req, res) => {
+  const user = await DB.getUser(req.body.userName);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  console.log("logged in")
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+apiRouter.get('/user/:username', async (req, res) => {
+  const user = await DB.getUser(req.params.username);
+  if (user) {
+    const token = req?.cookies.token;
+    res.send({ userName: user.userName, authenticated: token === user.token });
+    return;
+  }
+  res.status(404).send({ msg: 'Unknown' });
+});
+apiRouter.delete('/auth/logout', (_req, res) => {
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+});
+
+
+// all planting endpoints are secure
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+  authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+});
 
 let plantType 
 let garden = [];
 let dates = [];
-apiRouter.get('/plant-type', (_req, res) => {
+secureApiRouter.get('/plant-type', (_req, res) => {
   console.log("getting plants")
   res.send(plantType);
 });
 
-apiRouter.get('/plant', (_req, res) => {
+secureApiRouter.get('/plant', (_req, res) => {
   console.log("getting plant")
   let plantJson = getPlantFromGarden(plantType);
   res.send(plantJson);
 });
 
-apiRouter.post('/plant', (req, res) => {
+secureApiRouter.post('/plant', (req, res) => {
   plantType = req.body.name;
   console.log(req.body);
   updateGarden(req.body, garden);
   res.send(plantType);
 });
 
-apiRouter.get('/date', (_req, res) => {
+secureApiRouter.get('/date', (_req, res) => {
   console.log("getting dates")
   let dateJson = getDate(plantType);
   res.send(dateJson);
 });
 
-apiRouter.post('/date', (req, res) => {
+secureApiRouter.post('/date', (req, res) => {
   console.log(req.body);
   updateDates(req.body, dates);
   res.send(plantType);
@@ -56,7 +118,17 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+// authorization helper functions
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
 
+
+// planting helper functions
 function getDate(plantType){
   let found = false;
   for (const [i, prevDate] of dates.entries()) {
@@ -88,7 +160,6 @@ function updateDates(newDate, dates) {
   }
   return dates;
 }
-
 function getPlantFromGarden(plantType){
   let found = false;
   for (const [i, prevPlant] of garden.entries()) {
