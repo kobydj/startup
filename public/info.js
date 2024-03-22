@@ -80,7 +80,7 @@ class plantdates{
   async function setDate() {
     const dateEl = document.querySelector("#start-date");
     console.log("dateEl value: " + dateEl.value);
-    const newDate = {name: JSON.parse(plantType), date: dateEl.value};
+    const newDate = {name: JSON.parse(plantType), date: dateEl.value, userName : localStorage.getItem('userName') };
     try{
       const response = await fetch('/api/date', {
         method: 'POST',

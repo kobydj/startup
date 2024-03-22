@@ -8,6 +8,8 @@ const client = new MongoClient(url);
 const db = client.db('gardentimer');
 const userCollection = db.collection('user');
 const plantCollection = db.collection('plants');
+const dateCollection = db.collection('dates');
+
 
 (async function testConnection() {
   await client.connect();
@@ -47,10 +49,27 @@ function getPlant(plantType) {
   return plantCollection.findOne({ name: plantType });
 }
 
+async function createDate(date) {
+  await dateCollection.insertOne(date);
+  return date;
+}
+
+async function updateDate(date) {
+  await dateCollection.updateOne( {name: date.name, userName: date.userName}, {$set: date});
+  return date;
+}
+
+function getDate(plantType, userName) {
+  return dateCollection.findOne({ name: plantType, userName: userName});
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   createUser, 
   createPlant,
   getPlant,
+  createDate,
+  updateDate,
+  getDate
 };

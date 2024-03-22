@@ -81,6 +81,7 @@ secureApiRouter.use(async (req, res, next) => {
 let plantType 
 let garden = [];
 let dates = [];
+let userName;
 secureApiRouter.get('/plant-type', (_req, res) => {
   console.log("getting plant type")
   res.send(plantType);
@@ -101,21 +102,40 @@ secureApiRouter.get('/plant', (_req, res) => {
 secureApiRouter.post('/plant', async (req, res) => {
   plantType = req.body.name;
   console.log(req.body);
-  updateGarden(req.body, garden);
-  const plant = await DB.createPlant(req.body);
-  res.send(plantType);
+  const plant = await DB.getPlant(plantType);
+  if (plant) {
+    res.send(plantType);
+  }else{
+    updateGarden(req.body, garden);
+    const plant = await DB.createPlant(req.body);
+    res.send(plantType);
+  }
 });
 
 secureApiRouter.get('/date', (_req, res) => {
-  console.log("getting dates")
-  let dateJson = getDate(plantType);
-  res.send(dateJson);
+  console.log("getting dates");
+  let dateJson =  DB.getDate(plantType, userName);
+  if(dateJson){
+    res.send(dateJson);
+  }else{
+    let dateJson = getDate(plantType);
+    res.send(dateJson);
+  }
 });
 
-secureApiRouter.post('/date', (req, res) => {
+secureApiRouter.post('/date', async (req, res) => {
   console.log(req.body);
   updateDates(req.body, dates);
-  res.send(plantType);
+  userName = req.body.userName;
+  const tempDate = await DB.getDate(req.body);
+  if (tempDate) {
+    const date = await DB.updateDate(req.body)
+    
+    res.send(plantType);
+  }else{
+    const date = await DB.createDate(req.body);
+    res.send(plantType);
+  }
 });
 
 // Return the application's default page if the path is unknown
