@@ -1,7 +1,7 @@
 (async () => {
   const userName = localStorage.getItem('userName');
   if (userName) {
-    const usernameEl = document.querySelector('#userName');
+    const usernameEl = document.querySelector('#title');
     usernameEl.textContent = userName;
     setDisplay('loginControls', 'none');
     setDisplay('postLogin', 'block');

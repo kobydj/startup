@@ -41,7 +41,5 @@ async function createUser(userName, password) {
 module.exports = {
   getUser,
   getUserByToken,
-  createUser,
-  //addPlant,
-  
+  createUser,  
 };

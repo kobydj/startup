@@ -5,7 +5,6 @@
     <!-- Tell browsers not to scale the viewport automatically -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="login.js"></script>
     <link rel="stylesheet" href="main.css" />
 
     <title>Startup HTML</title>
@@ -42,24 +41,19 @@
         <h1>Welcome to your Garden</h1>
         <div id="loginControls" style="display: none">
           <p>Login to see your plants</p>
-          <form method="get" action="garden.html">
             <input type="text" id="name" placeholder="Your name here" />
             <input type="text" id="password" placeholder="Your password here" />
-            <button class=" btn btn-success" type="submit" onclick="login()" >Login</button>
-            <button class=" btn btn-success" type="submit" onclick="create()" >Create</button>
+            <button class=" btn btn-success"  onclick="login()" >Login</button>
+            <button class=" btn btn-success"  onclick="create()" >Create</button>
           
-          </form>
         </div> 
         <div id="postLogin" style="display: none">
-          <div id="userName"> </div>
+          <div id="title"> </div>
 
           <p>Press garden to see you plants</p>
-          <form method="get" action="garden.html">
-
-            <button class=" btn btn-success" type="submit" href="garden.html" >Garden</button>
-            <button class=" btn btn-success" type="submit" onclick="logout()" >Logout</button>
+            <button class=" btn btn-success"  href="garden.html" >Garden</button>
+            <button class=" btn btn-success"  onclick="logout()" >Logout</button>
           
-          </form>
         </div> 
       </div>
 
