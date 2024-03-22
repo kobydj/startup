@@ -127,7 +127,7 @@ secureApiRouter.post('/date', async (req, res) => {
   console.log(req.body);
   updateDates(req.body, dates);
   userName = req.body.userName;
-  const tempDate = await DB.getDate(req.body);
+  const tempDate = await DB.getDate(plantType, userName);
   if (tempDate) {
     const date = await DB.updateDate(req.body)
     
