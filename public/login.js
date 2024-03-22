@@ -39,8 +39,11 @@ async function loginOrCreate(endpoint) {
   
   if (response.ok) {
     localStorage.setItem('userName', userName);
+    console.log("logged in now")
     window.location.href = 'garden.html';
   } else {
+    console.log("there was an error")
+
     const body = await response.json();
     const modalEl = document.querySelector('#msgModal');
     modalEl.querySelector('.modal-body').textContent = `⚠ Error: ${body.msg}`;

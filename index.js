@@ -42,10 +42,11 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       setAuthCookie(res, user.token);
       res.send({ id: user._id });
+      console.log("logged in")
       return;
     }
   }
-  console.log("logged in")
+  
   res.status(401).send({ msg: 'Unauthorized' });
 });
 apiRouter.get('/user/:username', async (req, res) => {
