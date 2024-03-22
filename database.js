@@ -38,8 +38,19 @@ async function createUser(userName, password) {
   return user;
 }
 
+async function createPlant(plant) {
+  await plantCollection.insertOne(plant);
+  return plant;
+}
+
+function getPlant(plantType) {
+  return plantCollection.findOne({ name: plantType });
+}
+
 module.exports = {
   getUser,
   getUserByToken,
-  createUser,  
+  createUser, 
+  createPlant,
+  getPlant,
 };

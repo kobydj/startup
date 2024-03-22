@@ -82,20 +82,27 @@ let plantType
 let garden = [];
 let dates = [];
 secureApiRouter.get('/plant-type', (_req, res) => {
-  console.log("getting plants")
+  console.log("getting plant type")
   res.send(plantType);
 });
 
 secureApiRouter.get('/plant', (_req, res) => {
   console.log("getting plant")
-  let plantJson = getPlantFromGarden(plantType);
-  res.send(plantJson);
+  
+  let plantJson =  DB.getPlant(plantType)
+  if(plantJson){
+    res.send(plantJson);
+  }else{
+    plantJson = getPlantFromGarden(plantType);
+    res.send(plantJson);
+  }
 });
 
-secureApiRouter.post('/plant', (req, res) => {
+secureApiRouter.post('/plant', async (req, res) => {
   plantType = req.body.name;
   console.log(req.body);
   updateGarden(req.body, garden);
+  const plant = await DB.createPlant(req.body);
   res.send(plantType);
 });
 
