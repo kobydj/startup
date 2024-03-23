@@ -3,14 +3,30 @@ class Gardener {
 
         const userNameEl = document.querySelector('.gardener-name');
         userNameEl.textContent = this.getUserName();
-
+        const user = confirmLogin();
     }
     getUserName() {
         return localStorage.getItem('userName'); 
     }
 }
+
 const gardener = new Gardener();
 /* could add ability to remove or add cards here*/
+
+async function confirmLogin(){
+    const response = await fetch(`/api/user/${localStorage.getItem('userName')}` );
+    if(!response.ok){
+        const body = await response.json();
+        const modalEl = document.querySelector('#msgModal');
+        const msgModal = new bootstrap.Modal(modalEl, {});
+        msgModal.show();
+    }
+}
+function goBack() {
+    window.location.href = 'index.html';
+  }
+
+
 async function setPlant(plantType, germinate, growSeason) {
     const newPlant = {name: plantType, germination: germinate, season: growSeason};
     try{

@@ -37,6 +37,16 @@
     </header>
 
     <main class="container-fluid text-dark text-center">
+      <div class="modal fade" id="msgModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-dark">
+            <div class="modal-body"> ⚠ Please login to view your plants</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="goBack()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="gardeners">
         Gardener:
         <span class="gardener-name"></span>
@@ -110,7 +120,11 @@
       </div>
     </footer> 
     <script src="garden.js"></script>
-
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
 
     </body>
   </html>

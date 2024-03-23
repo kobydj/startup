@@ -58,4 +58,7 @@ function logout() {
     method: 'delete',
   }).then(() => (window.location.href = '/'));
   }
-  
+
+function garden() {
+    window.location.href = 'garden.html';
+}

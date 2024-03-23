@@ -44,8 +44,23 @@ class weatherUpdates {
 let plantType 
 class plantdates{
      constructor() {
-        getPlant();
+      const user = confirmLogin();
     }
+}
+async function confirmLogin(){
+  const response = await fetch(`/api/user/${localStorage.getItem('userName')}` );
+  if(!response.ok){
+      const body = await response.json();
+      const modalEl = document.querySelector('#msgModal');
+      const msgModal = new bootstrap.Modal(modalEl, {});
+      msgModal.show();
+  }else{
+    getPlant();
+  }
+}
+
+function goBack() {
+  window.location.href = 'index.html';
 }
 
   async function getPlant() {
