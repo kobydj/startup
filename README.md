@@ -70,3 +70,14 @@ For this deliverable I added backend endpoints to store information on all the p
 - **Backend service endpoints** - Endpoints to store the plant type and all the info for the plants, I also have the planting dates given by the user stored.
 - **Frontend calls service endpoints** - I did this using the fetch function.
 
+## DB/Login deliverable
+
+For this deliverable I associate the plant dates with the logged in user. I stored the user info, plant info and plant dates in the database.
+
+- **MongoDB Atlas database created** - done!
+- **Stores data in MongoDB** - done!
+- **User registration** - Creates a new account in the database.
+- **existing user** - If a user exists their planting dates are brought up if added.
+- **Use MongoDB to store credentials** - Stores both user and their planting dates as well as the general plant info.
+- **Restricts functionality** - In the backend you cannot view the plants or update dates unless you are authorized. In the Front end if you try to go to a page before logging in you are asked to login before you can do anything.
+
