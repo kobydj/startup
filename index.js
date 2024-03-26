@@ -2,6 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
+
 
 const app = express();
 const authCookieName = 'token';
@@ -145,9 +147,7 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+
 // authorization helper functions
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
@@ -219,3 +219,9 @@ function updateGarden(newPlant, garden) {
   }
   return garden;
 }
+
+const httpService = app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+
+peerProxy(httpService);
