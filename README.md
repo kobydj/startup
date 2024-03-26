@@ -81,3 +81,11 @@ For this deliverable I associate the plant dates with the logged in user. I stor
 - **Use MongoDB to store credentials** - Stores both user and their planting dates as well as the general plant info.
 - **Restricts functionality** - In the backend you cannot view the plants or update dates unless you are authorized. In the Front end if you try to go to a page before logging in you are asked to login before you can do anything.
 
+## WebSocket deliverable
+
+For this deliverable I used webSocket to update the votes on the frontend in realtime.
+
+- **Backend listens for WebSocket connection** - done!
+- **Frontend makes WebSocket connection** - done!
+- **Data sent over WebSocket connection** - done!
+- **WebSocket data displayed** - All user votes display in realtime. I'm really proud that this is working. Way cool!
