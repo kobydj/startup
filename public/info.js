@@ -52,6 +52,7 @@ async function confirmLogin(){
   if(!response.ok){
       const body = await response.json();
       const modalEl = document.querySelector('#msgModal');
+      modalEl.querySelector('.modal-body').textContent = `⚠ Please login to view your notifications`;
       const msgModal = new bootstrap.Modal(modalEl, {});
       msgModal.show();
   }else{
@@ -63,7 +64,7 @@ function goBack() {
   window.location.href = 'index.html';
 }
 
-  async function getPlant() {
+async function getPlant() {
     console.log("getplant")
     try {
       console.log("trying")
@@ -90,9 +91,9 @@ function goBack() {
       germination.textContent = localStorage.getItem(plantType + "-germination");
     }
     getStartDate();
-  }
+}
 
-  async function setDate() {
+async function setDate() {
     const dateEl = document.querySelector("#start-date");
     console.log("dateEl value: " + dateEl.value);
     const newDate = {name: JSON.parse(plantType), date: dateEl.value, userName : localStorage.getItem('userName') };
@@ -125,11 +126,9 @@ function goBack() {
     }
     const harvestDateEl = document.querySelector('#finish-date');
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
-  }
+}
 
-
-
-  async function getStartDate() {
+async function getStartDate() {
     console.log("in getstartdate");
     let thisDate;
     let harvestDate;
@@ -168,8 +167,49 @@ function goBack() {
     }
     const harvestDateEl = document.querySelector('#finish-date');
     harvestDateEl.textContent = harvestDate.toLocaleDateString();
-  }
-
+}
 new plantdates();
 new weatherUpdates();
+
+class waterUpdate{
+  socket;
+  constructor() {
+    this.configureWebSocket();
+
+  }
+
+  configureWebSocket() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    this.socket.onopen = (event) => {
+      this.displayMsg('system', 'game', 'connected');
+    };
+    this.socket.onclose = (event) => {
+      this.displayMsg('system', 'game', 'disconnected');
+    };
+    this.socket.onmessage = async (event) => {
+      const msg = JSON.parse(await event.data.text());
+      if (msg.type === GameEndEvent) {
+        this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
+      } else if (msg.type === GameStartEvent) {
+        this.displayMsg('player', msg.from, `started a new game`);
+      }
+    };
+  }
   
+  displayMsg(msg) {
+    const modalEl = document.querySelector('#msgModal');
+    modalEl.querySelector('.modal-body').textContent = `${msg}`;
+    const msgModal = new bootstrap.Modal(modalEl, {});
+    msgModal.show();
+  }
+  
+  broadcastEvent(from, type, value) {
+    const event = {
+      from: from,
+      type: type,
+      value: value,
+    };
+    this.socket.send(JSON.stringify(event));
+  }
+}
