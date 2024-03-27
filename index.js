@@ -91,10 +91,10 @@ secureApiRouter.get('/plant-type', (_req, res) => {
   res.send(plantType);
 });
 
-secureApiRouter.get('/plant', (_req, res) => {
+secureApiRouter.get('/plant', async (_req, res) => {
   console.log("getting plant")
   
-  let plantJson =  DB.getPlant(plantType)
+  let plantJson = await DB.getPlant(plantType)
   if(plantJson){
     res.send(plantJson);
   }else{

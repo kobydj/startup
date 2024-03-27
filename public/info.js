@@ -81,9 +81,8 @@ async function getPlant() {
 
     try {
       const response = await fetch('/api/plant');
-
       const plantText = await response.json();
-
+      
       const germination = document.querySelector('#avg-germination');
       germination.textContent = plantText.germination;
     } catch {
