@@ -12,21 +12,27 @@ function peerProxy(httpServer) {
     });
   });
 
-  // Keep track of all the connections so we can forward messages
-  let connections = [];
-
-  wss.on('connection', (ws) => {
-    const connection = { id: uuid.v4(), alive: true, ws: ws };
-    connections.push(connection);
-
-    // Forward messages to everyone except the sender
-    ws.on('message', function message(data) {
-      connections.forEach((c) => {
-        if (c.id !== connection.id) {
-          c.ws.send(data);
-        }
+ // Keep track of all the connections so we can forward messages
+    let connections = [];
+    wss.on('connection', (ws) => {
+      const connection = { id: uuid.v4(), alive: true, ws: ws };
+      connections.push(connection);
+  
+      // Forward messages to everyone except the sender
+      ws.on('message', function message(data) {
+        connections.forEach((c) => {
+          if (c.id !== connection.id) {
+            c.ws.send(data);
+          }
+        });
       });
-    });
+
+    setInterval(() => {
+      const data = {type: 'watering'}
+      connections.forEach((c) => {
+        c.ws.send(data);
+      });
+    }, 10000); 
 
     // Remove the closed connection so we don't try to forward anymore
     ws.on('close', () => {
