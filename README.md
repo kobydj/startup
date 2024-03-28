@@ -88,4 +88,4 @@ For this deliverable I used webSocket to update the votes on the frontend in rea
 - **Backend listens for WebSocket connection** - done!
 - **Frontend makes WebSocket connection** - done!
 - **Data sent over WebSocket connection** - done!
-- **WebSocket data displayed** - All user votes display in realtime. I'm really proud that this is working. Way cool!
+- **WebSocket data displayed** - In the info page after selecting to share planting dates if you change your date it will display a message to any other user who has also selected to share dates and is on the info page.
