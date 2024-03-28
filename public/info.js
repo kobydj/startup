@@ -82,7 +82,7 @@ async function getPlant() {
     try {
       const response = await fetch('/api/plant');
       const plantText = await response.json();
-      
+
       const germination = document.querySelector('#avg-germination');
       germination.textContent = plantText.germination;
     } catch {
@@ -169,7 +169,9 @@ async function getStartDate() {
 }
 new plantdates();
 new weatherUpdates();
-
+function waterReminder(){
+  new waterUpdate();
+}
 class waterUpdate{
   socket;
   constructor() {
@@ -197,8 +199,8 @@ class waterUpdate{
   }
   
   displayMsg(msg) {
-    const modalEl = document.querySelector('#msgModal');
-    modalEl.querySelector('.modal-body').textContent = `${msg}`;
+    const modalEl = document.querySelector('#wsMsgModal');
+    modalEl.querySelector('#wsModal-body').textContent = `${msg}`;
     const msgModal = new bootstrap.Modal(modalEl, {});
     msgModal.show();
   }

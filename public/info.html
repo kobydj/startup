@@ -41,7 +41,17 @@
           <div class="modal-content text-dark">
             <div class="modal-body"> ⚠ Please login to view your notifications</div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="goBack()">Close</button>
+              <button id="back-button" type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="goBack()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="wsMsgModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-dark">
+            <div class="modal-body" id="wsModal-body"> </div>
+            <div class="modal-footer">
+              <button id="back-button" type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -61,7 +71,11 @@
             <li  type="date">Harvest date : <span ID="finish-date"></span></li>
         </ul>
         </div>
-
+        <aside>        
+          <p class="water-button">
+            Click for daily watering reminders <button class="btn btn-success " onclick=" waterReminder()">Subscribe</button>
+          </p>
+        </aside>
         <aside class="return">        
           <p>
             Return to <a href="garden.html"  class="btn btn-success ">Garden</a>

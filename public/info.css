@@ -16,3 +16,6 @@ main {
     align-self: flex-end;
     border-bottom-style: outset;
 }
+.water-button {
+    display: grid;
+}
