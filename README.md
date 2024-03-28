@@ -87,5 +87,5 @@ For this deliverable I used webSocket to update the votes on the frontend in rea
 
 - **Backend listens for WebSocket connection** - done!
 - **Frontend makes WebSocket connection** - This happens when the subcribe button is clicked on the info page.
-- **Data sent over WebSocket connection** - This happens each time you change your planting date after the connection has been made.
+- **Data sent over WebSocket connection** - This happens each time you change your planting date after the connection has been made. The backend also sends reminders to water your plants every minute.
 - **WebSocket data displayed** - Any other users with open connections will be notified of what you set your new plant date to be!
