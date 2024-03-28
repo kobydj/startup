@@ -30,7 +30,7 @@ function peerProxy(httpServer) {
     setInterval(() => {
       const data = {type: 'watering'}
       connections.forEach((c) => {
-        c.ws.send(data);
+        c.ws.send(JSON.stringify(data));
       });
     }, 10000); 
 
