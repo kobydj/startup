@@ -41,10 +41,15 @@ class weatherUpdates {
   }
 }
 
-let plantType 
+let plantType ;
+let socket;
 class plantdates{
      constructor() {
       const user = confirmLogin();
+      if(socket){
+        const buttonEl = document.querySelector('.water-button');
+        buttonEl.style.display = 'none';
+      }
     }
 }
 async function confirmLogin(){
@@ -103,6 +108,9 @@ async function setDate() {
         body: (JSON.stringify(newDate)),
       });
       localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
+      if(socket){
+        broadcastEvent(localStorage.getItem('userName'), 'plantingTime', new Date(newDate.date).toLocaleDateString(), newDate.name)
+      }
     }catch{
       localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
     }
@@ -173,27 +181,30 @@ function waterReminder(){
   new waterUpdate();
 }
 class waterUpdate{
-  socket;
   constructor() {
     this.configureWebSocket();
+    const buttonEl = document.querySelector('.water-button');
+    buttonEl.style.display = 'none';
 
   }
 
   configureWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    this.socket.onopen = (event) => {
-      this.displayMsg('system', 'game', 'connected');
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+      this.displayMsg('You\'re signed up!');
     };
-    this.socket.onclose = (event) => {
-      this.displayMsg('system', 'game', 'disconnected');
+    socket.onclose = (event) => {
+      this.displayMsg('You have been disconnected from reminders');
+      const buttonEl = document.querySelector('.water-button');
+      buttonEl.style.display = 'grid';
     };
-    this.socket.onmessage = async (event) => {
-      const msg = JSON.parse(await event.data.text());
-      if (msg.type === GameEndEvent) {
-        this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
-      } else if (msg.type === GameStartEvent) {
-        this.displayMsg('player', msg.from, `started a new game`);
+    socket.onmessage = async (plantingEvent) => {
+      const msg = JSON.parse(await plantingEvent.data.text());
+      if (msg.type === 'watering') {
+        this.displayMsg('Don\'t forget to water today!');
+      } else if (msg.type === 'plantingTime') {
+        this.displayMsg( msg.from + ' changed their planting date for ' + msg.plant + '\'s to ' + msg.date );
       }
     };
   }
@@ -205,12 +216,14 @@ class waterUpdate{
     msgModal.show();
   }
   
-  broadcastEvent(from, type, value) {
-    const event = {
-      from: from,
-      type: type,
-      value: value,
-    };
-    this.socket.send(JSON.stringify(event));
-  }
+
+}
+function broadcastEvent(from, type, date, plant) {
+  const plantingEvent = {
+    from: from,
+    type: type,
+    date: date,
+    plant: plant,
+  };
+  socket.send(JSON.stringify(plantingEvent));
 }
