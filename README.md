@@ -86,6 +86,6 @@ For this deliverable I associate the plant dates with the logged in user. I stor
 For this deliverable I used webSocket to update the votes on the frontend in realtime.
 
 - **Backend listens for WebSocket connection** - done!
-- **Frontend makes WebSocket connection** - done!
-- **Data sent over WebSocket connection** - done!
-- **WebSocket data displayed** - In the info page after selecting to share planting dates if you change your date it will display a message to any other user who has also selected to share dates and is on the info page.
+- **Frontend makes WebSocket connection** - This happens when the subcribe button is clicked on the info page.
+- **Data sent over WebSocket connection** - This happens each time you change your planting date after the connection has been made.
+- **WebSocket data displayed** - Any other users with open connections will be notified of what you set your new plant date to be!
