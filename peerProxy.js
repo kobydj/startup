@@ -22,7 +22,7 @@ function peerProxy(httpServer) {
       ws.on('message', function message(data) {
         connections.forEach((c) => {
           if (c.id !== connection.id) {
-            c.ws.send(data);
+            c.ws.send(data.text());
           }
         });
       });
@@ -32,7 +32,7 @@ function peerProxy(httpServer) {
       connections.forEach((c) => {
         c.ws.send(JSON.stringify(data));
       });
-    }, 10000); 
+    }, 60000); 
 
     // Remove the closed connection so we don't try to forward anymore
     ws.on('close', () => {

@@ -200,7 +200,7 @@ class waterUpdate{
       buttonEl.style.display = 'grid';
     };
     socket.onmessage = async (plantingEvent) => {
-      const msg = JSON.parse(await plantingEvent.data.text());
+      const msg = JSON.parse(await plantingEvent.data);
       if (msg.type === 'watering') {
         this.displayMsg('Don\'t forget to water today!');
       } else if (msg.type === 'plantingTime') {
