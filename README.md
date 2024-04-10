@@ -89,3 +89,13 @@ For this deliverable I used webSocket to update the votes on the frontend in rea
 - **Frontend makes WebSocket connection** - This happens when the subcribe button is clicked on the info page.
 - **Data sent over WebSocket connection** - This happens each time you change your planting date after the connection has been made. The backend also sends reminders to water your plants every minute.
 - **WebSocket data displayed** - Any other users with open connections will be notified of what you set your new plant date to be!
+
+## React deliverable
+
+
+For this deliverable I converted the application over to use Vue. I know it is supposed to use React, but the instructor said I could use Vue because I already have extensive experience with React.
+
+- **Bundled and transpiled** - done!
+- **Components** - Login, voting list, vote are all components.
+- **Router** - Routing between login and voting components.
+- **Hooks** - Vue uses class properties instead of `UseState` to track changes in vote state.
