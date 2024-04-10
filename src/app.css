@@ -12,7 +12,7 @@
 
 }
   
-  main {
+  .main {
     flex: 1 calc(100vh - 110px);
     display: flex;
     flex-direction: column;
@@ -21,7 +21,10 @@
     background-color: #d2ebc9;
 
 }
-  
+.form-control {
+  border: darkolivegreen;
+}  
+
   footer {
     flex: 0 30px;
     background-color: darkolivegreen;

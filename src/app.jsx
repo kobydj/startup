@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Garden } from './garden/garden';
 import { Info } from './info/info';
 import { About } from './about/about';
 import { AuthState } from './login/authState';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
 
 
 function App() {
@@ -35,6 +34,7 @@ function App() {
             </menu>
           </nav>
         </header>
+        <main className= 'main'>
         <Routes>
           <Route path='/' element={<Login 
                 userName={userName}
@@ -52,6 +52,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
+        </main>
         <footer className="text-white-50">
           <div className="container-fluid">
             <span className="text-reset">Koby Jensen</span>
@@ -66,3 +67,5 @@ function App() {
       return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
     }
 }
+
+export default App;
