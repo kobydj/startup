@@ -4,7 +4,8 @@ import Button from 'react-bootstrap/Button';
 import './garden.css';
 
 export function Garden(props) {
-    const [newPlant, setPlantType] = React.useState({name: '', germination: '', season: ''});
+    //const [newPlant, setPlantType] = React.useState({name: '', germination: '', season: ''});
+    //const [plant, setPlants] = React.useState('');
 
     const navigate = useNavigate();
     
@@ -12,7 +13,7 @@ export function Garden(props) {
     
     
     async function setPlant(plantType, germinate, growSeason) {
-        setPlantType({name: plantType, germination: germinate, season: growSeason});
+        const newPlant = {name: plantType, germination: germinate, season: growSeason};
         try{
         const response = await fetch('/api/plant', {
           method: 'POST',

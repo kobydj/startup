@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-
+import {MessageDialog} from './messageDialog';
 import './info.css';
 
 export function Info() {
+    const [displayError, setDisplayError] = React.useState(null);
     const navigate = useNavigate();
 
     class weatherUpdates {
@@ -203,6 +204,7 @@ export function Info() {
           socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
           socket.onopen = (event) => {
             this.displayMsg('You\'re signed up!');
+
           };
           socket.onclose = (event) => {
             this.displayMsg('You have been disconnected from reminders');
@@ -220,10 +222,7 @@ export function Info() {
         }
         
         displayMsg(msg) {
-          const modalEl = document.querySelector('#wsMsgModal');
-          modalEl.querySelector('#wsModal-body').textContent = `${msg}`;
-          const msgModal = new bootstrap.Modal(modalEl, {});
-          msgModal.show();
+            setDisplayError(`${msg}`);
         }
         
       
@@ -240,6 +239,17 @@ export function Info() {
   return (
     <main className='container-fluid text-dark text-center'>
         <div>
+            <div className="modal fade" id="wsMsgModal" tabindex="-1">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content text-dark">
+                        <div className="modal-body" id="wsModal-body"> </div>
+                        <div className="modal-footer">
+                            <Button id="back-button" type="button" variant="success" data-bs-dismiss="modal">Close</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <h3>See your notifications here</h3>
             <div id="freeze-alert" className="alert alert-success"> 
             <p>Weather alerts : </p>
@@ -267,6 +277,7 @@ export function Info() {
             </p>
             </aside>
         </div>
+        <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
     </main>
   );
 }
