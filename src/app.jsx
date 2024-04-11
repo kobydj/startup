@@ -47,7 +47,11 @@ function App() {
             }
             exact
           />
-          <Route path='/garden' element={<Garden />} />
+          <Route path='/garden' element={<Garden 
+                userName={userName}
+              />
+            } 
+          />
           <Route path='/info' element={<Info />} />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
