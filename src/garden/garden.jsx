@@ -1,7 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import './garden.css';
 
 export function Garden() {
+    const navigate = useNavigate();
+    
     class Gardener {
         constructor() {
     
@@ -26,9 +30,7 @@ export function Garden() {
             msgModal.show();
         }
     }
-    function goBack() {
-        window.location.href = 'index.html';
-      }
+
     
     
     async function setPlant(plantType, germinate, growSeason) {
@@ -60,7 +62,7 @@ export function Garden() {
                 <div className="modal-content text-dark">
                     <div className="modal-body"> ⚠ Please login to view your plants</div>
                     <div className="modal-footer">
-                    <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick="goBack()">Close</button>
+                <Button type="button" variant="success" data-bs-dismiss="modal" onClick={() => navigate('/garden')} >Close</Button>
                     </div>
                 </div>
                 </div>
