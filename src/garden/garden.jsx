@@ -1,11 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import './garden.css';
 
 export function Garden(props) {
     //const [newPlant, setPlantType] = React.useState({name: '', germination: '', season: ''});
-    //const [plant, setPlants] = React.useState('');
 
     const navigate = useNavigate();
     

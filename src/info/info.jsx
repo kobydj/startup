@@ -2,54 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {MessageDialog} from './messageDialog';
+import {WeatherUpdates} from './weather';
+
 import './info.css';
 
 export function Info() {
     const [displayError, setDisplayError] = React.useState(null);
     const navigate = useNavigate();
 
-    class weatherUpdates {
-        constructor(){
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              const latitude = position.coords.latitude;
-              const longitude = position.coords.longitude;
-              console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-      
-              fetch(`https://api.weather.gov/points/${latitude},${longitude}`)
-              .then((x) => x.json())
-              .then((response) => {
-                fetch(response.properties.forecast)
-                .then((x) => x.json())
-                .then((response) => {
-                    let weather = response.properties.periods[1].temperature
-                    console.log(`temp tonight: ${weather}`);
-                    const weatherNote = document.querySelector('#weather-alert');
-                    weatherNote.removeChild(weatherNote.firstChild);
-                    const alertColor = document.querySelector('#freeze-alert');
-                    if(weather < 32) {
-                        alertColor.classList.remove('alert-success');
-                        alertColor.classList.add('alert-danger');
-                
-                        weatherNote.innerHTML =
-                        `<li> UPCOMING FREEZE!! TEMP: ${weather}\u00B0 F </li>` +
-                        weatherNote.innerHTML;
-                    }else{
-                        alertColor.classList.remove('alert-danger');
-                        alertColor.classList.add('alert-success');
-                
-                        weatherNote.innerHTML =
-                        `<li> none </li>` +
-                        weatherNote.innerHTML;
-                    }
-                });
-              });
-            });
-          } else {
-            console.log("Geolocation is not supported by this browser.");
-          }
-        }
-      }
+
       
       let plantType ;
       let socket;
@@ -186,7 +147,6 @@ export function Info() {
           harvestDateEl.textContent = harvestDate.toLocaleDateString();
       }
       new plantdates();
-      new weatherUpdates();
 
     function waterReminder(){
         new waterUpdate();
@@ -239,7 +199,7 @@ export function Info() {
   return (
     <main className='container-fluid text-dark text-center'>
         <div>
-            <div className="modal fade" id="wsMsgModal" tabindex="-1">
+            <div className="modal fade" id="wsMsgModal" tabIndex="-1">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content text-dark">
                         <div className="modal-body" id="wsModal-body"> </div>
@@ -251,11 +211,7 @@ export function Info() {
             </div>
 
             <h3>See your notifications here</h3>
-            <div id="freeze-alert" className="alert alert-success"> 
-            <p>Weather alerts : </p>
-            <ul id="weather-alert">
-            </ul>
-            </div>
+            <WeatherUpdates />
             
             <div id= "plant-alerts" className="alert">
             <p>Plant information <span id= "plant-type"></span></p>
