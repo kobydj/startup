@@ -21,14 +21,14 @@ export function Garden(props) {
           body: (JSON.stringify(newPlant)),
         });
         localStorage.setItem('plant', JSON.stringify(newPlant));  
-        localStorage.setItem('plant-type', JSON.stringify(newPlant.name));  
+        localStorage.setItem('plant-type', newPlant.name);  
     
         }catch{
             console.log("broke")
         }
     
         localStorage.setItem(JSON.stringify(plantType) + "-germination", germinate);
-        localStorage.setItem(JSON.stringify(plantType) + "-grow-time", JSON.stringify(growSeason));
+        localStorage.setItem(JSON.stringify(plantType) + "-grow-time", growSeason);
         navigate('/info')
     
     }

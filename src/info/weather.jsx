@@ -17,7 +17,7 @@ export function WeatherUpdates(){
                     let weather = response.properties.periods[1].temperature
                     console.log(`temp tonight: ${weather}`);
                     const weatherNote = document.querySelector('#weather-alert');
-                    weatherNote.removeChild(weatherNote.firstChild);
+                    //weatherNote.removeChild(weatherNote.firstChild);
                     const alertColor = document.querySelector('#freeze-alert');
                     if(weather < 32) {
                         alertColor.classList.remove('alert-success');
@@ -31,7 +31,7 @@ export function WeatherUpdates(){
                         alertColor.classList.add('alert-success');
                 
                         weatherNote.innerHTML =
-                        `<li>TEMP: ${weather}\u00B0 F </li>` +
+                        `<li>The Low Today: ${weather}\u00B0 F </li>` +
                         weatherNote.innerHTML;
                     }
                 });

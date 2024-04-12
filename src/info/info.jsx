@@ -3,151 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {MessageDialog} from './messageDialog';
 import {WeatherUpdates} from './weather';
+import {PlantDates} from './date';
+
 
 import './info.css';
 
-export function Info() {
+export function Info(props) {
     const [displayError, setDisplayError] = React.useState(null);
+    const [plantType, setPlantType] = React.useState(localStorage.getItem('plant') || '');
+
     const navigate = useNavigate();
 
-
-      
-      let plantType ;
-      let socket;
-      class plantdates{
-           constructor() {
-            const user = confirmLogin();
-            if(socket){
-              const buttonEl = document.querySelector('.water-button');
-              buttonEl.style.display = 'none';
-            }
-          }
-      }
-      async function confirmLogin(){
-        const response = await fetch(`/api/user/${localStorage.getItem('userName')}` );
-        if(!response.ok){
-            const body = await response.json();
-            const modalEl = document.querySelector('#msgModal');
-            modalEl.querySelector('.modal-body').textContent = `⚠ Please login to view your notifications`;
-            const msgModal = new bootstrap.Modal(modalEl, {});
-            msgModal.show();
-        }else{
-          getPlant();
-        }
-      }
-      
-      function goBack() {
-        window.location.href = 'index.html';
-      }
-      
-      async function getPlant() {
-          console.log("getplant")
-          try {
-            console.log("trying")
-            const response = await fetch('/api/plant-type');
-            plantType = await response.json();
-            localStorage.setItem('plant-type', plantType);    
-      
-          } catch {
-            plantType = localStorage.getItem('plant-type');
-      
-          }    
-          const plantText = document.querySelector('#plant-type');
-          plantText.textContent = JSON.parse(plantType);
-      
-          try {
-            const response = await fetch('/api/plant');
-            const plantText = await response.json();
-      
-            const germination = document.querySelector('#avg-germination');
-            germination.textContent = plantText.germination;
-          } catch {
-            const germination = document.querySelector('#avg-germination');
-            germination.textContent = localStorage.getItem(plantType + "-germination");
-          }
-          getStartDate();
-      }
-      
-      async function setDate() {
-          const dateEl = document.querySelector("#start-date");
-          console.log("dateEl value: " + dateEl.value);
-          const newDate = {name: JSON.parse(plantType), date: dateEl.value, userName : localStorage.getItem('userName') };
-          try{
-            const response = await fetch('/api/date', {
-              method: 'POST',
-              headers: {'content-type': 'application/json'},
-              body: (JSON.stringify(newDate)),
-            });
-            localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
-            if(socket){
-              broadcastEvent(localStorage.getItem('userName'), 'plantingTime', new Date(newDate.date).toLocaleDateString(), newDate.name)
-            }
-          }catch{
-            localStorage.setItem(plantType + "-start", JSON.stringify(dateEl.value));
-          }
-          let harvestDate = new Date(dateEl.value);
-          console.log(harvestDate);
-          try {
-            const response = await fetch('/api/plant');
-            const plantText = await response.json();
-            let daysToAdd = Number(JSON.parse(plantText.season));
-            harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-            console.log("days to add" + typeof(daysToAdd));
-            console.log(harvestDate.getDate());
-            console.log(harvestDate);
-          } catch {
-            let daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
-            harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-            console.log(typeof(daysToAdd));
-            console.log(harvestDate.getDate());
-            console.log(harvestDate);
-          }
-          const harvestDateEl = document.querySelector('#finish-date');
-          harvestDateEl.textContent = harvestDate.toLocaleDateString();
-      }
-      
-      async function getStartDate() {
-          console.log("in getstartdate");
-          let thisDate;
-          let harvestDate;
-          try {
-            const response = await fetch('/api/date');
-            const dateText = await response.json();
-            thisDate = JSON.parse(dateText.date);
-            console.log(thisDate);
-            const startDate = document.querySelector('#start-date');
-            startDate.value = JSON.parse(thisDate);
-            harvestDate = new Date(JSON.parse(thisDate));  
-          } catch {
-            defaultDate = localStorage.getItem(plantType + "-start");
-            console.log(defaultDate);
-            const startDate = document.querySelector('#start-date');
-            startDate.value = JSON.parse(defaultDate); 
-            harvestDate = new Date(JSON.parse(defaultDate))
-          }
-      
-          console.log(harvestDate);
-      
-          try {
-            const response = await fetch('/api/plant');
-            const plantText = await response.json();
-            let daysToAdd = Number(JSON.parse(plantText.season));
-            harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-            console.log("days to add" + typeof(daysToAdd));
-            console.log(harvestDate.getDate());
-            console.log(harvestDate);
-          } catch {
-            let daysToAdd = Number(JSON.parse(localStorage.getItem(plantType + "-grow-time")));
-            harvestDate.setDate(harvestDate.getDate() + daysToAdd);
-            console.log(typeof(daysToAdd));
-            console.log(harvestDate.getDate());
-            console.log(harvestDate);
-          }
-          const harvestDateEl = document.querySelector('#finish-date');
-          harvestDateEl.textContent = harvestDate.toLocaleDateString();
-      }
-      new plantdates();
-
+    let socket;
+    if(socket){
+        const buttonEl = document.querySelector('.water-button');
+        buttonEl.style.display = 'none';
+    }
     function waterReminder(){
         new waterUpdate();
       }
@@ -215,11 +86,10 @@ export function Info() {
             
             <div id= "plant-alerts" className="alert">
             <p>Plant information <span id= "plant-type"></span></p>
-            <ul>
-            <li id="germination-time">days to germination : <span id= "avg-germination"></span></li>
-                <li>Planting date : <input id="start-date" className= "input-group date" type= "date"  min="2024-01-01" max="2024-12-31" value="2024-01-01" onChange={()=> setDate()}></input></li>
-                <li  type="date">Harvest date : <span id="finish-date"></span></li>
-            </ul>
+            <PlantDates 
+                plant= {JSON.parse(plantType)}
+            />
+
             </div>
             <aside>        
             <p className="water-button">
@@ -228,7 +98,7 @@ export function Info() {
             </aside>
             <aside className="return">        
             <p>
-                Return to 
+                Return to  
                 <Button variant='success' onClick={() => navigate('/garden')}> Garden </Button>
             </p>
             </aside>

@@ -14,6 +14,7 @@ function App() {
   const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
   const [authState, setAuthState] = React.useState(currentAuthState);
 
+
   return (
     <BrowserRouter>
     <div className= "body text-light">
@@ -48,11 +49,15 @@ function App() {
             exact
           />
           <Route path='/garden' element={<Garden 
-                userName={userName}
+                userName={userName}                
               />
             } 
           />
-          <Route path='/info' element={<Info />} />
+          <Route path='/info' element={<Info                
+                userName={userName}
+              />
+            }
+          />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

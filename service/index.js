@@ -44,7 +44,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       setAuthCookie(res, user.token);
       res.send({ id: user._id });
-      console.log("logged in")
+      console.log("logged in");
       return;
     }
   }
@@ -87,12 +87,12 @@ let garden = [];
 let dates = [];
 let userName;
 secureApiRouter.get('/plant-type', (_req, res) => {
-  console.log("getting plant type")
+  console.log("getting plant type", plantType);
   res.send(plantType);
 });
 
 secureApiRouter.get('/plant', async (_req, res) => {
-  console.log("getting plant")
+  console.log("getting plant");
   
   let plantJson = await DB.getPlant(plantType)
   if(plantJson){
@@ -133,7 +133,7 @@ secureApiRouter.post('/date', async (req, res) => {
   userName = req.body.userName;
   const tempDate = await DB.getDate(plantType, userName);
   if (tempDate) {
-    const date = await DB.updateDate(req.body)
+    const date = await DB.updateDate(req.body);
     
     res.send(plantType);
   }else{
@@ -162,7 +162,7 @@ function setAuthCookie(res, authToken) {
 function getDate(plantType){
   let found = false;
   for (const [i, prevDate] of dates.entries()) {
-    console.log(prevDate)
+    console.log(prevDate);
     if (plantType === prevDate.name) {
       found = true;
       return prevDate;
@@ -177,7 +177,7 @@ function getDate(plantType){
 function updateDates(newDate, dates) {
   let found = false;
   for (const [i, prevDate] of dates.entries()) {
-    console.log(prevDate)
+    console.log(prevDate);
     if (newDate.name === prevDate.name) {
       found = true;
       dates.splice(i, 0, newDate);
@@ -193,7 +193,7 @@ function updateDates(newDate, dates) {
 function getPlantFromGarden(plantType){
   let found = false;
   for (const [i, prevPlant] of garden.entries()) {
-    console.log(prevPlant)
+    console.log(prevPlant);
     if (plantType === prevPlant.name) {
       found = true;
       return prevPlant;
@@ -207,7 +207,7 @@ function getPlantFromGarden(plantType){
 function updateGarden(newPlant, garden) {
   let found = false;
   for (const [i, prevPlant] of garden.entries()) {
-    console.log(prevPlant)
+    console.log(prevPlant);
     if (newPlant.name === prevPlant.name) {
       found = true;
       break;
