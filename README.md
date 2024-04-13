@@ -93,9 +93,9 @@ For this deliverable I used webSocket to update the votes on the frontend in rea
 ## React deliverable
 
 
-For this deliverable I converted the application over to use Vue. I know it is supposed to use React, but the instructor said I could use Vue because I already have extensive experience with React.
+For this deliverable I converted the application over to use React.
 
 - **Bundled and transpiled** - done!
-- **Components** - Login, voting list, vote are all components.
-- **Router** - Routing between login and voting components.
-- **Hooks** - Vue uses class properties instead of `UseState` to track changes in vote state.
+- **Components** - Login, garden, info and about are all the main components within those components I added some for authentication as well as some for handling dates and one for the weather api calls.
+- **Router** - Routing between login, garden, info, and about components.
+- **Hooks** -  used Hooks to keep track of the temperature, plant types, dates and some error/ weather messages in the info pages. 
