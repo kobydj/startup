@@ -11,8 +11,32 @@ import './info.css';
 export function Info(props) {
     const [displayError, setDisplayError] = React.useState(null);
     const [plantType, setPlantType] = React.useState(localStorage.getItem('plant') || '');
+    const [startDate, setStartDate] = React.useState('');
+    const [endDate, setEndDate] = React.useState('');
 
     const navigate = useNavigate();
+    
+    async function makeDates(){
+        try {
+            const response = await fetch('/api/date');
+            const dateText = await response.json();
+            let thisDate = dateText.date;
+            console.log(thisDate);
+            let newDate = new Date(thisDate);
+            //setStartDate(newDate.toLocaleTimeString);
+            //newDate = new Date(thisDate);
+            //newDate.setDate(newDate.getDate() + Number(JSON.parse(plantType).season) + 2)
+            localStorage.setItem(JSON.parse(plantType).name + "-start", JSON.stringify(newDate.toLocaleDateString()));
+            newDate.setDate(newDate.getDate() + Number(JSON.parse(plantType).season) + 2)
+            localStorage.setItem(JSON.parse(plantType).name + "-end", JSON.stringify(newDate.toLocaleDateString()));
+        } catch {
+            /*let defaultDate = localStorage.getItem(plantType + "-start");
+            console.log(defaultDate);
+            setStartDate(JSON.parse(defaultDate)); 
+            setEndDate(JSON.parse(defaultDate));*/
+        }
+    }
+
 
     let socket;
     if(socket){
@@ -67,6 +91,7 @@ export function Info(props) {
         };
         socket.send(JSON.stringify(plantingEvent));
       }
+      makeDates()
   return (
     <main className='container-fluid text-dark text-center'>
         <div>
@@ -85,9 +110,12 @@ export function Info(props) {
             <WeatherUpdates />
             
             <div id= "plant-alerts" className="alert">
-            <p>Plant information <span id= "plant-type"></span></p>
+            <p>Plant information <span id= "plant-type">{JSON.parse(plantType).name}</span></p>
             <PlantDates 
                 plant= {JSON.parse(plantType)}
+                startDate= {startDate}
+                endDate= {endDate}
+
             />
 
             </div>

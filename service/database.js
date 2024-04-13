@@ -45,8 +45,8 @@ async function createPlant(plant) {
   return plant;
 }
 
-function getPlant(plantType) {
-  return plantCollection.findOne({ name: plantType });
+async function getPlant(plantType) {
+  return await plantCollection.findOne({ name: plantType });
 }
 
 async function createDate(date) {
@@ -59,8 +59,8 @@ async function updateDate(date) {
   return date;
 }
 
-function getDate(plantType, userName) {
-  return dateCollection.findOne({ name: plantType, userName: userName});
+async function getDate(plantType, userName) {
+  return await dateCollection.findOne({ name: plantType, userName: userName});
 }
 
 module.exports = {

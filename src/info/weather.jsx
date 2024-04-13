@@ -2,6 +2,8 @@ import React from 'react';
 import './info.css';
 
 export function WeatherUpdates(){
+    const [weatherAlert, setWeatherAlert] = React.useState('');
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             const latitude = position.coords.latitude;
@@ -23,16 +25,12 @@ export function WeatherUpdates(){
                         alertColor.classList.remove('alert-success');
                         alertColor.classList.add('alert-danger');
                 
-                        weatherNote.innerHTML =
-                        `<li> UPCOMING FREEZE!! TEMP: ${weather}\u00B0 F </li>` +
-                        weatherNote.innerHTML;
+                        setWeatherAlert(`UPCOMING FREEZE!! TEMP: ${weather}\u00B0 F `);
                     }else{
                         alertColor.classList.remove('alert-danger');
                         alertColor.classList.add('alert-success');
                 
-                        weatherNote.innerHTML =
-                        `<li>The Low Today: ${weather}\u00B0 F </li>` +
-                        weatherNote.innerHTML;
+                        setWeatherAlert(`Todays Temp: ${weather}\u00B0 F `)
                     }
                 });
             });
@@ -44,7 +42,7 @@ export function WeatherUpdates(){
     return(
         <div id="freeze-alert" className="alert alert-success"> 
             <p>Weather alerts : </p>
-            <ul id="weather-alert">
+            <ul id="weather-alert">{weatherAlert}
             </ul>
         </div>
     );

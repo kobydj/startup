@@ -24,12 +24,14 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 // authorization endpoints
+let userName;
+
 apiRouter.post('/auth/create', async (req, res) => {
   if (await DB.getUser(req.body.userName)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await DB.createUser(req.body.userName, req.body.password);
-
+    userName = req.body.userName
     // Set the cookie
     setAuthCookie(res, user.token);
 
@@ -45,6 +47,8 @@ apiRouter.post('/auth/login', async (req, res) => {
       setAuthCookie(res, user.token);
       res.send({ id: user._id });
       console.log("logged in");
+      userName = req.body.userName
+
       return;
     }
   }
@@ -85,7 +89,7 @@ secureApiRouter.use(async (req, res, next) => {
 let plantType 
 let garden = [];
 let dates = [];
-let userName;
+
 secureApiRouter.get('/plant-type', (_req, res) => {
   console.log("getting plant type", plantType);
   res.send(plantType);
@@ -116,9 +120,9 @@ secureApiRouter.post('/plant', async (req, res) => {
   }
 });
 
-secureApiRouter.get('/date', (_req, res) => {
+secureApiRouter.get('/date', async (_req, res) => {
   console.log("getting dates");
-  let dateJson =  DB.getDate(plantType, userName);
+  let dateJson = await DB.getDate(plantType, userName);
   if(dateJson){
     res.send(dateJson);
   }else{
